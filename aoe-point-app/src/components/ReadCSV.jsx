@@ -7,6 +7,35 @@ function isAlphaNumeric(str) {
   return /^[a-zA-Z0-9]+$/.test(str);
 }
 
+// idk if we actually need this since it looks like canvas already adds the bonus point for each category?
+// function findBonusPoint(row, category) {
+//   return Object.keys(row).find((key) => {
+//     const lowered = key.toLowerCase();
+//     return (
+//       lowered.includes(category.toLowerCase()) && lowered.includes("bonus")
+//     );
+//   });
+// }
+
+// TODO: find out if i should use current or final points
+// also i dont think study hours are in canvas currently
+function midsemesterCheckInTemplate(row) {
+  return `Hi ${row["Student"]}
+          eid: ${row["SIS Login ID"]}
+          chapter points: ${row["Chapter Current Points"]}
+          professional points: ${row["Professional Current Points"]}
+          sisterhood points: ${row["Sisterhood Current Points"]}
+          philanthropy points: ${row["Philanthropic Current Points"]}
+          academic points: ${row["Academic Current Points"]}
+          dei points: ${row["DEI Current Points"]}
+          interest meeting points: ${row["Interest Meetings Current Points"]}
+          recruitment points: ${row["Recruitment Current Points"]}
+          ritual points: ${row["Ritual Current Points"]}
+          traditional points: ${row["Traditional Current Points"]}
+          voting points: ${row["Voting Sessions Current Points"]}
+          `;
+}
+
 export default function ReadCSV() {
   const handleFile = (e) => {
     const file = e.target.files[0];
@@ -18,10 +47,16 @@ export default function ReadCSV() {
         let data = results.data.filter((row) =>
           isAlphaNumeric(row["SIS Login ID"])
         );
-        let students = data.map((row) => row["Student"]);
-        let eids = data.map((row) => row["SIS Login ID"]);
-        console.log(students);
-        console.log(eids);
+
+        // let students = data.map((row) => row["Student"]);
+        // let eids = data.map((row) => row["SIS Login ID"]);
+        // let emails = eids.map((eid) => `${eid}@dukes.jmu.edu`);
+        // console.log(students);
+        // console.log(eids);
+        // console.log(emails);
+        for (let row of data) {
+          console.log(midsemesterCheckInTemplate(row));
+        }
       },
     });
   };
