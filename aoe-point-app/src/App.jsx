@@ -10,9 +10,10 @@ function App() {
       <HashRouter>
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="/Login" element={<Login />} />
 
           <Route
-            path="/home"
+            path="/Home"
             element={
               <RequireAuth>
                 <Home />
