@@ -7,18 +7,7 @@ function isAlphaNumeric(str) {
   return /^[a-zA-Z0-9]+$/.test(str);
 }
 
-// idk if we actually need this since it looks like canvas already adds the bonus point for each category?
-// function findBonusPoint(row, category) {
-//   return Object.keys(row).find((key) => {
-//     const lowered = key.toLowerCase();
-//     return (
-//       lowered.includes(category.toLowerCase()) && lowered.includes("bonus")
-//     );
-//   });
-// }
-
-// TODO: find out if i should use current or final points
-// also i dont think study hours are in canvas currently
+// Using current points
 function midsemesterCheckInTemplate(row) {
   return `Hi ${row["Student"]}
           eid: ${row["SIS Login ID"]}
@@ -48,12 +37,6 @@ export default function ReadCSV() {
           isAlphaNumeric(row["SIS Login ID"])
         );
 
-        // let students = data.map((row) => row["Student"]);
-        // let eids = data.map((row) => row["SIS Login ID"]);
-        // let emails = eids.map((eid) => `${eid}@dukes.jmu.edu`);
-        // console.log(students);
-        // console.log(eids);
-        // console.log(emails);
         for (let row of data) {
           console.log(midsemesterCheckInTemplate(row));
         }
