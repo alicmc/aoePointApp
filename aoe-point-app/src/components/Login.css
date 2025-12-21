@@ -1,0 +1,82 @@
+:root {
+    --blue: rgb(0, 102, 188);
+    --silver: #c1c1c1;
+    font-family: "Dancing Script", cursive;
+    font-optical-sizing: auto;  
+}
+
+html, .body {
+    height: 100vh;
+    margin: 0 0;
+    background-color: var(--blue);
+    background-image: url('../assets/loginBackground2.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+}
+
+h1 {
+    display: flex;
+    font-size: 6em;
+    justify-content: center;
+    align-items: center;
+    color: var(--silver);
+    margin: 0 0;
+}
+
+h2 {
+    display: flex;
+    font-size: 2em;
+    justify-content: center;
+    align-items: center;
+    color: var(--silver);
+    margin: 0 0;
+    padding-bottom: 1em;
+}
+
+.google-container {
+    display: flex;
+    font-size: 3em;
+    flex-direction: column; 
+    align-items: center;
+    margin-left:auto;
+    margin-right:auto;
+    height: 5em;
+    width: 8em;
+    background-color: var(--silver);
+    opacity: .9;
+    border-radius: 15px;
+    gap:30px;
+
+}
+
+
+.google-container h3 {
+    font-size: 1em;
+    margin: 0 0;
+    color:rgb(88, 88, 88);
+}
+
+
+/* Below was created with https://www.shapedivider.app/ */
+.custom-shape-divider-bottom-1766276173 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1766276173 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 221px;
+}
+
+.custom-shape-divider-bottom-1766276173 .shape-fill {
+    fill: #C1C1C1;
+}
