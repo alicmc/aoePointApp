@@ -7,19 +7,6 @@ const address = import.meta.env.VITE_ADDRESS;
 
 emailjs.init(public_key);
 
-const categories = [
-  "Chapter",
-  "Professional",
-  "Sisterhood",
-  "Philanthropy",
-  "DEI",
-  "Interest Meeting",
-  "Ritual",
-  "Voting",
-  "Speed Dating", //temporary fix
-  "Pref", //temporary fix
-];
-
 // Using current points
 export function midsemesterTemplate(student) {
   getExcusedAbsences(student);

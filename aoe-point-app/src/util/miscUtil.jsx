@@ -4,3 +4,16 @@ export function isAlphaNumeric(str) {
   // using regular expression to check for alphanumeric characters
   return /^[a-zA-Z0-9]+$/.test(str);
 }
+
+const categories = [
+  "Chapter",
+  "Professional",
+  "Sisterhood",
+  "Philanthropy",
+  "DEI",
+  "Interest Meeting",
+  "Ritual",
+  "Voting Sessions/", // edit csv
+  "Recruitment", //edit csv
+  "Pref", //edit csv
+];

@@ -1,6 +1,6 @@
 import Papa from "papaparse";
 import { sendEndSemester, sendMidsemester } from "../util/email";
-import { isAlphaNumeric } from "../util/stringUtil";
+import { isAlphaNumeric } from "../util/miscUtil";
 
 export default function UploadButton({ setStudents }) {
   const handleFile = (e) => {
