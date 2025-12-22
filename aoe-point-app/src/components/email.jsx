@@ -1,6 +1,11 @@
-const service_id = import.meta.env.SERVICE_ID;
-const template_id = import.meta.env.TEMPLATE_ID;
-const address = import.meta.env.ADDRESS;
+import emailjs from "@emailjs/browser";
+
+const service_id = import.meta.env.VITE_SERVICE_ID;
+const template_id = import.meta.env.VITE_TEMPLATE_ID;
+const public_key = import.meta.env.VITE_PUBLIC_KEY;
+const address = import.meta.env.VITE_ADDRESS;
+
+emailjs.init(public_key);
 
 const categories = [
   "Chapter",
@@ -16,7 +21,7 @@ const categories = [
 ];
 
 // Using current points
-export default function midsemesterCheckInTemplate(student) {
+export function midsemesterCheckInTemplate(student) {
   getExcusedAbsences(student);
   return `Hi ${student["Student"]}
   eid: ${student["SIS Login ID"]}
@@ -52,30 +57,23 @@ function getExcusedAbsences(student) {
 }
 
 export async function sendMidsemesterCheckin(student) {
-  // code fragment
-  var data = {
-    service_id: service_id,
-    template_id: template_id,
-    user_id: "YOUR_PUBLIC_KEY",
-    template_params: {
-      title: "Midsemester Check-in",
-      name: "AOE Secretary",
-      message: midsemesterCheckInTemplate(student),
-      email: address,
-      time: Date.now(),
-    },
+  var template_params = {
+    title: "Midsemester Check-in",
+    name: "AOE Secretary",
+    message: midsemesterCheckInTemplate(student),
+    email: address,
+    time: Date.now(),
   };
 
-  $.ajax("https://api.emailjs.com/api/v1.0/email/send", {
-    type: "POST",
-    data: JSON.stringify(data),
-    contentType: "application/json",
-  })
-    .done(function () {
-      alert("Your mail is sent!");
-    })
-    .fail(function (error) {
-      alert("Oops... " + JSON.stringify(error));
-    });
-  // code fragment
+  try {
+    const result = await emailjs.send(service_id, template_id, template_params);
+    console.log("Email sent!", result);
+    return result;
+  } catch (error) {
+    if (error.status === 429) {
+      console.error("Rate limit hit - wait before sending more");
+    }
+    console.error("Email error:", error);
+    throw error;
+  }
 }

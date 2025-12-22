@@ -1,5 +1,5 @@
 import Papa from "papaparse";
-import midsemesterCheckInTemplate from "./email";
+import { midsemesterCheckInTemplate, sendMidsemesterCheckin } from "./email";
 
 // function to check if a string is alphanumeric
 function isAlphaNumeric(str) {
@@ -21,7 +21,8 @@ export default function ReadCSV() {
         );
 
         for (let row of data) {
-          console.log(midsemesterCheckInTemplate(row));
+          // commented this so i dont get spammed and reach the rate limit
+          //console.log(sendMidsemesterCheckin(row));
         }
       },
     });
