@@ -1,6 +1,8 @@
+import './UploadButton.css';
 import Papa from "papaparse";
 import { sendEndSemester, sendMidsemester } from "../util/email";
 import { isAlphaNumeric } from "../util/stringUtil";
+
 
 export default function UploadButton({ setStudents }) {
   const handleFile = (e) => {
@@ -25,5 +27,21 @@ export default function UploadButton({ setStudents }) {
     });
   };
 
-  return <input type="file" accept=".csv" onChange={handleFile} />;
+  return (
+    <>
+    <div className="input-container">
+      <label className="file-button">
+        Choose File
+        <input
+          type="file"
+          accept=".csv"
+          onChange={handleFile}
+          hidden
+        />
+      </label>
+    </div>
+      
+    </>
+    
+  );
 }
