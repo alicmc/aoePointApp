@@ -43,6 +43,7 @@ app.post("/api/auth/google", async (req, res) => {
     //todo: go back and coordinate this with alice's code
     // if email is not an authorized email
     if (!validEmails.includes(email)) {
+      // adding something to check if its lowercase would be nice but not 100% necessary
       // tell browser it’s forbidden
       res.status(403);
 
