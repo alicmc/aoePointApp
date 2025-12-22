@@ -21,7 +21,7 @@ const categories = [
 ];
 
 // Using current points
-export function midsemesterCheckInTemplate(student) {
+export function midsemesterTemplate(student) {
   getExcusedAbsences(student);
   return `Hi ${student["Student"]}
   eid: ${student["SIS Login ID"]}
@@ -56,11 +56,30 @@ function getExcusedAbsences(student) {
   console.log(student);
 }
 
-export async function sendMidsemesterCheckin(student) {
+export async function sendMidsemester(student) {
   var template_params = {
     title: "Midsemester Check-in",
     name: "AOE Secretary",
-    message: midsemesterCheckInTemplate(student),
+    message: midsemesterTemplate(student),
+    email: address,
+    time: Date.now(),
+  };
+
+  try {
+    const result = await emailjs.send(service_id, template_id, template_params);
+    console.log("Email sent!", result);
+    return result;
+  } catch (error) {
+    console.error("Email error:", error);
+    throw error;
+  }
+}
+
+export async function sendEndSemester(student) {
+  var template_params = {
+    title: "End of Semester Check-in",
+    name: "AOE Secretary",
+    message: midsemesterTemplate(student),
     email: address,
     time: Date.now(),
   };
