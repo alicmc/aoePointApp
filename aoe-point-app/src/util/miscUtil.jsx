@@ -5,15 +5,30 @@ export function isAlphaNumeric(str) {
   return /^[a-zA-Z0-9]+$/.test(str);
 }
 
-const categories = [
+export const categories = [
   "Chapter",
   "Professional",
+  "Academic",
   "Sisterhood",
   "Philanthropy",
   "DEI",
   "Interest Meeting",
   "Ritual",
-  "Voting Sessions/", // edit csv
+  "Voting Sessions", // edit csv
   "Recruitment", //edit csv
-  "Pref", //edit csv
+  "Traditional", //edit csv
 ];
+
+export const pointReqs = {
+  Chapter: 12,
+  Professional: 2,
+  Academic: 1,
+  Sisterhood: 2,
+  Philanthropy: 2,
+  DEI: 2,
+  "Interest Meeting": 1,
+  Ritual: 3,
+  "Voting Sessions": 2, // edit csv
+  Recruitment: 2, //edit csv
+  Traditional: 7, //edit csv
+};
