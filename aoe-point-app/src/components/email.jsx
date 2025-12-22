@@ -36,7 +36,7 @@ export function midsemesterCheckInTemplate(student) {
   ritual points: ${student["Ritual Current Points"]}
   traditional points: ${student["Traditional Current Points"]}
   voting points: ${student["Voting Sessions Current Points"]}
-  sisterhood excuses: ${student["Sisterhood Excuses"]}
+  sisterhood excuses: ${student["Sisterhood Excuses"] ?? 0}
   `;
 }
 

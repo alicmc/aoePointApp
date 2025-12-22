@@ -21,7 +21,8 @@ export default function ReadCSV() {
         );
 
         for (let row of data) {
-          // commented this so i dont get spammed and reach the rate limit
+          console.log(midsemesterCheckInTemplate(row));
+          // commented this out so i dont get spammed and reach the rate limit
           //console.log(sendMidsemesterCheckin(row));
         }
       },
