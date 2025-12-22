@@ -32,7 +32,7 @@ app.post("/api/auth/google", async (req, res) => {
     const payload = ticket.getPayload();
 
     // get the user's email
-    const email = payload.email.toLowerCase();
+    const email = payload.email;
 
     const validEmails = [
       "rossitermackenzie@gmail.com",
