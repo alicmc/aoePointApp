@@ -2,8 +2,8 @@ import "./Home.css";
 import { googleLogout } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 import UploadButton from "./UploadButton";
-import React, { useState } from "react";
-import { isAlphaNumeric } from "../util/miscUtil";
+import { useState } from "react";
+import { metRequirements } from "../util/miscUtil";
 import { PointTable } from "../util/emailTemplates";
 import { sendMidsemester } from "../util/email";
 
@@ -66,7 +66,11 @@ function Home() {
         {students.length > 0 &&
           students.map((student, index) => (
             <div>
-              <h3>{student["Student"]}</h3>
+              <h3>
+                {student["Student"]} has {!metRequirements(student) && "not"}{" "}
+                met requirements
+              </h3>
+              <h3></h3>
               <PointTable key={index} student={student} />
             </div>
           ))}
