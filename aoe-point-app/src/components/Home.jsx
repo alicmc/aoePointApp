@@ -79,7 +79,7 @@ function Home() {
         <button onClick={handleLogout}>Logout</button>
       </div>
 
-      <div className="wrapper">
+      <div className="point-tables">
         {students.length > 0 &&
           students.map((student, index) => (
             <div>

@@ -1,5 +1,5 @@
 :root {
-    --blue: rgb(0, 102, 188);
+    --blue: rgb(23, 131, 174);
     --silver: #c1c1c1;
     font-family: "Dancing Script", cursive;
     font-optical-sizing: auto;  
@@ -9,10 +9,7 @@ html, .body {
     height: 100vh;
     margin: 0 0;
     background-color: var(--blue);
-    background-image: url('../assets/loginBackground2.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+
 
 }
 

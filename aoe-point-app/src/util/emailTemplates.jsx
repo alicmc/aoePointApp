@@ -4,7 +4,7 @@ import { categories, pointReqs } from "./miscUtil";
 // if u wanna do it differently we can try it out tho
 export function PointTable({ student }) {
   const thStyle = {
-    border: "1px solid #ccc",
+    border: "1px solid black",
     padding: "8px",
     textAlign: "center",
     background: "#f2f2f2",
@@ -12,9 +12,11 @@ export function PointTable({ student }) {
   };
 
   const tdStyle = {
-    border: "1px solid #ccc",
+    border: "1px solid black",
     padding: "8px",
     textAlign: "center",
+    backgroundColor: "#d2d1d1ff"
+    
   };
 
   return (

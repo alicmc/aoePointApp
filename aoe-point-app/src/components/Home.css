@@ -1,5 +1,5 @@
 :root {
-    --blue: rgb(0, 102, 188);
+    --blue: rgb(27, 155, 205);
     --silver: #c1c1c1;
     font-family: "Dancing Script", cursive;
     font-optical-sizing: auto;  
@@ -33,4 +33,10 @@ button:hover {
     margin-right: auto;
     text-align: center;
     padding-top: 5em;
+}
+
+.point-tables {
+    margin: 1em 1em;
+    padding-bottom: 3em;
+    font-size: 23px;
 }

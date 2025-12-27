@@ -35,6 +35,7 @@ export default function UploadButton({ setStudents }) {
         setStudents(data);
       },
     });
+    console.log(setStudents);
   };
 
   return (
