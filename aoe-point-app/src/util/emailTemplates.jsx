@@ -42,7 +42,7 @@ export function PointTable({ student }) {
               <td style={tdStyle}>{category}</td>
               <td style={tdStyle}>{pointReqs[category]}</td>
               <td style={tdStyle}>
-                {student[`${category} Current Points`] ?? 0}
+                {Number(student[`${category} Current Points`]) || 0}
               </td>
               <td style={tdStyle}>{student[`${category} Excuses`] ?? 0}</td>
               <td style={tdStyle}>

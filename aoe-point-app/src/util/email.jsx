@@ -1,9 +1,11 @@
 import emailjs from "@emailjs/browser";
 import { renderToStaticMarkup } from "react-dom/server";
 import { PointTable } from "./emailTemplates";
+import { metRequirements } from "./miscUtil";
 
 const service_id = import.meta.env.VITE_SERVICE_ID;
-const template_id = import.meta.env.VITE_TEMPLATE_ID;
+const midsem_id = import.meta.env.VITE_MIDSEM_ID;
+const endsem_id = import.meta.env.VITE_ENDSEM_ID;
 const public_key = import.meta.env.VITE_PUBLIC_KEY;
 const address = import.meta.env.VITE_ADDRESS;
 
@@ -13,11 +15,11 @@ export async function sendMidsemester(student) {
     student_name: student["Student"],
     point_table: renderToStaticMarkup(<PointTable student={student} />),
     title: "Midsemester Check-in",
-    email: address,
+    recipient: `${student["SIS Login ID"]}@dukes.jmu.edu`,
   };
 
   try {
-    const result = await emailjs.send(service_id, template_id, template_params);
+    const result = await emailjs.send(service_id, midsem_id, template_params);
     console.log("Email sent!", result);
     return result;
   } catch (error) {
@@ -27,5 +29,22 @@ export async function sendMidsemester(student) {
 }
 
 export async function sendEndSemester(student) {
-  return;
+  var template_params = {
+    student_name: student["Student"],
+    point_table: renderToStaticMarkup(<PointTable student={student} />),
+    title: "Midsemester Check-in",
+    recipient: `${student["SIS Login ID"]}@dukes.jmu.edu`,
+    met_requirements: `<strong>You have ${
+      metRequirements(student) ? "" : "not"
+    } met requirements for this semester.</strong>`,
+  };
+
+  try {
+    const result = await emailjs.send(service_id, endsem_id, template_params);
+    console.log("Email sent!", result);
+    return result;
+  } catch (error) {
+    console.error("Email error:", error);
+    throw error;
+  }
 }
