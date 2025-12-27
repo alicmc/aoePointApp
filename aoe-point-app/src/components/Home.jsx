@@ -6,6 +6,7 @@ import { useState } from "react";
 import { metRequirements } from "../util/miscUtil";
 import { PointTable } from "../util/emailTemplates";
 import { sendMidsemester } from "../util/email";
+import { sendEndSemester } from "../util/email";
 
 function Home() {
   const [isDisabled, setIsDisabled] = useState(false);
@@ -41,6 +42,22 @@ function Home() {
     // }
   }
 
+  async function handleMidSem() {
+    handleEmails();
+    console.log(students);
+    students.map((student, index) => (
+      sendMidsemester(student)
+    ))
+  }
+
+  async function handleEndSem() {
+    handleEmails();
+    console.log(students);
+    students.map((student, index) => (
+      sendEndSemester(student)
+    ))
+  }
+
   return (
     <>
       <h1>Home Page</h1>
@@ -50,10 +67,10 @@ function Home() {
 
         {/* button below will use the sendMidsemesterCheckin(student)
         function from emails.jsx */}
-        <button disabled={isDisabled} onClick={handleEmails}>
+        <button disabled={isDisabled} onClick={handleMidSem}>
           Send Mid Semester Emails
         </button>
-        <button disabled={isDisabled} onClick={handleEmails}>
+        <button disabled={isDisabled} onClick={handleEndSem}>
           Send End Semester Emails
         </button>
       </div>
