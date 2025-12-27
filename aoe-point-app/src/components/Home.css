@@ -40,3 +40,39 @@ button:hover {
     padding-bottom: 3em;
     font-size: 23px;
 }
+
+.status-table table th{
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+    background: #f2f2f2;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+}
+
+.status-table table td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+    background-color: #d2d1d1ff;
+    font-family: Arial, sans-serif;
+}
+
+#status-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+.status-table {
+    padding: 2em 2em;
+    text-align: center;
+}
+
+
+.status-table h3 {
+    font-size: 50px;
+    margin-bottom: 0.5em;
+}

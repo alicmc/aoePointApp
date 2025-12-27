@@ -79,19 +79,65 @@ function Home() {
         <button onClick={handleLogout}>Logout</button>
       </div>
 
-      <div className="point-tables">
-        {students.length > 0 &&
-          students.map((student, index) => (
-            <div>
-              <h3>
-                {student["Student"]} has {!metRequirements(student) && "not"}{" "}
-                met requirements
-              </h3>
-              <h3></h3>
-              <PointTable key={index} student={student} />
-            </div>
-          ))}
+    {/* tables with sister statuses */}
+    <div className = "status-table">
+      <h3>Sister Status</h3>
+
+      <div className="wrapper" id="status-wrapper">
+
+        {/* table listing active sisters */}
+        <table>
+          <thead>
+            <tr>
+              <th>Active Status</th>
+            </tr>
+          </thead>
+
+          <tbody>
+          {students
+            .filter(student => metRequirements(student))
+            .map((student, index) => (
+              <tr key={index}>
+                <td>{student.Student}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        {/* table listing passive restricted sisters */}
+        <table>
+          <thead>
+            <tr>
+              <th>Passive Restricted Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {students
+              .filter(student => !metRequirements(student))
+              .map((student, index) => (
+                <tr key={index}>
+                  <td>{student.Student}</td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
       </div>
+    </div>
+
+    {/* tables with each sisters individual points */}
+    <div className="point-tables">
+      {students.length > 0 &&
+        students.map((student, index) => (
+          <div>
+            <h3>
+              {student["Student"]} has {!metRequirements(student) && "not"}{" "}
+              met requirements
+            </h3>
+            <h3></h3>
+            <PointTable key={index} student={student} />
+          </div>
+        ))}
+    </div>
     </>
   );
 }
