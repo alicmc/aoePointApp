@@ -1,6 +1,6 @@
 import { metRequirements } from "../util/miscUtil";
 
-export function StatusTables(students) {
+export function StatusTables({ students }) {
   return (
     <div className="status-table">
       <h3>Sister Status</h3>

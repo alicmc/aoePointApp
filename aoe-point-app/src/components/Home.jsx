@@ -1,7 +1,7 @@
 import "./Home.css";
 import { googleLogout } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
-import UploadButton from "./UploadButton";
+import { UploadButton } from "./UploadButton";
 import { useState } from "react";
 import { PointTable } from "../util/emailTemplates";
 import { sendMidsemester } from "../util/email";
