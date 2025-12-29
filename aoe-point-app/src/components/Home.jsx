@@ -7,8 +7,6 @@ import { metRequirements } from "../util/miscUtil";
 import { PointTable } from "../util/emailTemplates";
 import { sendMidsemester } from "../util/email";
 import { sendEndSemester } from "../util/email";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 
 function Home() {
   const [isDisabled, setIsDisabled] = useState(false);
@@ -131,13 +129,14 @@ function Home() {
                 {student["Student"]} has {!metRequirements(student) && "not"}{" "}
                 met requirements
               </h3>
-              {/* Added checkbox using mui*/}
-              {/* Check the docs on how to change the style: https://mui.com/material-ui/react-checkbox/*/}
-              <FormControlLabel
-                control={<Checkbox defaultChecked />}
-                label="Send Email"
-                onChange={(event) => handleChange(event, index)}
-              />
+              <label>
+                <input
+                  type="checkbox"
+                  defaultChecked
+                  onChange={(event) => handleChange(event, index)}
+                />
+                Send Email
+              </label>
               <h3></h3>
               <PointTable student={student} />
             </div>
