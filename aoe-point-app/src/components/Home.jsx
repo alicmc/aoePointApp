@@ -28,7 +28,7 @@ function Home() {
     let newChecked = new Array(checked.length);
     newChecked.fill(event.target.checked);
     setChecked(newChecked);
-    console.log(checked);
+    // console.log(newChecked);
   };
 
   function handleLogout() {
@@ -55,14 +55,22 @@ function Home() {
 
   async function handleMidSem() {
     handleEmails();
-    console.log(students);
-    students.map((student, index) => sendMidsemester(student));
+    //console.log(students);
+    students.forEach((student, index) => {
+      if (checked[index]) {
+        sendMidsemester(student);
+      }
+    });
   }
 
   async function handleEndSem() {
     handleEmails();
-    console.log(students);
-    students.map((student, index) => sendEndSemester(student));
+    // console.log(students);
+    students.forEach((student, index) => {
+      if (checked[index]) {
+        sendEndSemester(student);
+      }
+    });
   }
 
   return (

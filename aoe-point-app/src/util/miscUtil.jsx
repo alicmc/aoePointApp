@@ -45,8 +45,8 @@ function categoryMet(student, category) {
     return getPoints(student, category) >= pointReqs[category] - 2;
   } else {
     if (!(getPoints(student, category) >= pointReqs[category] / 2)) {
-      console.log(getPoints(student, category));
-      console.log("frffr");
+      //console.log(getPoints(student, category));
+      //console.log("frffr");
       return false;
     }
   }
@@ -63,7 +63,7 @@ export function metRequirements(student) {
         return false;
       }
       if (!categoryMet(student, category)) {
-        console.log(student["Student"], category);
+        //console.log(student["Student"], category);
         missingReqs += 1;
       }
     }
