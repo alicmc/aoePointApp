@@ -14,9 +14,19 @@ function Home() {
   const [checked, setChecked] = useState([]);
   const navigate = useNavigate();
 
-  const handleChange = (event, index) => {
-    let newChecked = checked;
-    newChecked[index] = event.target.checked;
+  // handle change for each student checkbox
+  const handleCheck = (event, index) => {
+    setChecked((prev) => {
+      const next = [...prev];
+      next[index] = event.target.checked;
+      return next;
+    });
+  };
+
+  // handle change for the select all checkbox
+  const handleSelectAll = (event) => {
+    let newChecked = new Array(checked.length);
+    newChecked.fill(event.target.checked);
     setChecked(newChecked);
     console.log(checked);
   };
@@ -31,7 +41,7 @@ function Home() {
   // Timeout send emails button to avoid spamming inboxes
   async function handleEmails() {
     if (!isDisabled) {
-      console.log("I am not disbaled");
+      console.log("I am not disabled");
       // send mid sem emails
       setIsDisabled(true);
       console.log("I am disbaled");
@@ -120,6 +130,16 @@ function Home() {
         </div>
       </div>
 
+      {/* checkbox to select/deselect all */}
+      <label>
+        <input
+          type="checkbox"
+          defaultChecked
+          onChange={(event) => handleSelectAll(event)}
+        />
+        Select all
+      </label>
+
       {/* tables with each sisters individual points */}
       <div className="point-tables">
         {students.length > 0 &&
@@ -132,10 +152,10 @@ function Home() {
               <label>
                 <input
                   type="checkbox"
-                  defaultChecked
-                  onChange={(event) => handleChange(event, index)}
+                  checked={checked[index]}
+                  onChange={(event) => handleCheck(event, index)}
                 />
-                Send Email
+                Include in emails
               </label>
               <h3></h3>
               <PointTable student={student} />
