@@ -18,10 +18,11 @@ function getExcusedAbsences(student) {
   }
 }
 
-export default function UploadButton({ setStudents }) {
+export default function UploadButton({ setStudents, setChecked }) {
   const handleFile = (e) => {
     const file = e.target.files[0];
 
+    // parsing csv
     Papa.parse(file, {
       header: true,
       complete: (results) => {
@@ -29,13 +30,20 @@ export default function UploadButton({ setStudents }) {
         let data = results.data.filter((student) =>
           isAlphaNumeric(student["SIS Login ID"])
         );
+
         data.forEach((student) => {
           getExcusedAbsences(student);
         });
+
+        // setting the array of all studentss
         setStudents(data);
+
+        // setting the array for the checkboxes
+        let checkedArr = new Array(data.length);
+        checkedArr.fill(true);
+        setChecked(checkedArr);
       },
     });
-    console.log(setStudents);
   };
 
   return (

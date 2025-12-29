@@ -7,11 +7,21 @@ import { metRequirements } from "../util/miscUtil";
 import { PointTable } from "../util/emailTemplates";
 import { sendMidsemester } from "../util/email";
 import { sendEndSemester } from "../util/email";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 
 function Home() {
   const [isDisabled, setIsDisabled] = useState(false);
   const [students, setStudents] = useState([]);
+  const [checked, setChecked] = useState([]);
   const navigate = useNavigate();
+
+  const handleChange = (event, index) => {
+    let newChecked = checked;
+    newChecked[index] = event.target.checked;
+    setChecked(newChecked);
+    console.log(checked);
+  };
 
   function handleLogout() {
     googleLogout();
@@ -33,29 +43,18 @@ function Home() {
         setIsDisabled(false);
       }, 3000);
     }
-
-    // this works!
-    // i need to set up the email template for the endsemester ones
-    // for (const student of students) {
-    //   await sendMidsemester(student);
-    //   await new Promise((r) => setTimeout(r, 1200)); // 1–2s delay
-    // }
   }
 
   async function handleMidSem() {
     handleEmails();
     console.log(students);
-    students.map((student, index) => (
-      sendMidsemester(student)
-    ))
+    students.map((student, index) => sendMidsemester(student));
   }
 
   async function handleEndSem() {
     handleEmails();
     console.log(students);
-    students.map((student, index) => (
-      sendEndSemester(student)
-    ))
+    students.map((student, index) => sendEndSemester(student));
   }
 
   return (
@@ -63,7 +62,7 @@ function Home() {
       <h1>Home Page</h1>
 
       <div className="wrapper">
-        <UploadButton setStudents={setStudents} />
+        <UploadButton setStudents={setStudents} setChecked={setChecked} />
 
         {/* button below will use the sendMidsemesterCheckin(student)
         function from emails.jsx */}
@@ -79,65 +78,71 @@ function Home() {
         <button onClick={handleLogout}>Logout</button>
       </div>
 
-    {/* tables with sister statuses */}
-    <div className = "status-table">
-      <h3>Sister Status</h3>
+      {/* tables with sister statuses */}
+      <div className="status-table">
+        <h3>Sister Status</h3>
 
-      <div className="wrapper" id="status-wrapper">
-
-        {/* table listing active sisters */}
-        <table>
-          <thead>
-            <tr>
-              <th>Active Status</th>
-            </tr>
-          </thead>
-
-          <tbody>
-          {students
-            .filter(student => metRequirements(student))
-            .map((student, index) => (
-              <tr key={index}>
-                <td>{student.Student}</td>
+        <div className="wrapper" id="status-wrapper">
+          {/* table listing active sisters */}
+          <table>
+            <thead>
+              <tr>
+                <th>Active Status</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
 
-        {/* table listing passive restricted sisters */}
-        <table>
-          <thead>
-            <tr>
-              <th>Passive Restricted Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {students
-              .filter(student => !metRequirements(student))
-              .map((student, index) => (
-                <tr key={index}>
-                  <td>{student.Student}</td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
+            <tbody>
+              {students
+                .filter((student) => metRequirements(student))
+                .map((student, index) => (
+                  <tr key={index}>
+                    <td>{student.Student}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+
+          {/* table listing passive restricted sisters */}
+          <table>
+            <thead>
+              <tr>
+                <th>Passive Restricted Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {students
+                .filter((student) => !metRequirements(student))
+                .map((student, index) => (
+                  <tr key={index}>
+                    <td>{student.Student}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
 
-    {/* tables with each sisters individual points */}
-    <div className="point-tables">
-      {students.length > 0 &&
-        students.map((student, index) => (
-          <div>
-            <h3>
-              {student["Student"]} has {!metRequirements(student) && "not"}{" "}
-              met requirements
-            </h3>
-            <h3></h3>
-            <PointTable key={index} student={student} />
-          </div>
-        ))}
-    </div>
+      {/* tables with each sisters individual points */}
+      <div className="point-tables">
+        {students.length > 0 &&
+          students.map((student, index) => (
+            <div key={index}>
+              <h3>
+                {student["Student"]} has {!metRequirements(student) && "not"}{" "}
+                met requirements
+              </h3>
+              {/* Added checkbox using mui*/}
+              {/* Check the docs on how to change the style: https://mui.com/material-ui/react-checkbox/*/}
+              <FormControlLabel
+                control={<Checkbox defaultChecked />}
+                label="Send Email"
+                onChange={(event) => handleChange(event, index)}
+              />
+              <h3></h3>
+              <PointTable student={student} />
+            </div>
+          ))}
+      </div>
     </>
   );
 }
