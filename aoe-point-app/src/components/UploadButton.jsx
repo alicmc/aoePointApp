@@ -18,7 +18,7 @@ function getExcusedAbsences(student) {
   }
 }
 
-export default function UploadButton({ setStudents, setChecked }) {
+export function UploadButton({ setStudents, setChecked }) {
   const handleFile = (e) => {
     const file = e.target.files[0];
 

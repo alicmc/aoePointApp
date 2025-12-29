@@ -3,10 +3,11 @@ import { googleLogout } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 import UploadButton from "./UploadButton";
 import { useState } from "react";
-import { metRequirements } from "../util/miscUtil";
 import { PointTable } from "../util/emailTemplates";
 import { sendMidsemester } from "../util/email";
 import { sendEndSemester } from "../util/email";
+import { StatusTables } from "./StatusTables";
+import { metRequirements } from "../util/miscUtil";
 
 function Home() {
   const [isDisabled, setIsDisabled] = useState(false);
@@ -76,7 +77,6 @@ function Home() {
   return (
     <>
       <h1>Home Page</h1>
-
       <div className="wrapper">
         <UploadButton setStudents={setStudents} setChecked={setChecked} />
 
@@ -89,54 +89,12 @@ function Home() {
           Send End Semester Emails
         </button>
       </div>
-
       <div className="logout-button">
         <button onClick={handleLogout}>Logout</button>
       </div>
 
       {/* tables with sister statuses */}
-      <div className="status-table">
-        <h3>Sister Status</h3>
-
-        <div className="wrapper" id="status-wrapper">
-          {/* table listing active sisters */}
-          <table>
-            <thead>
-              <tr>
-                <th>Active Status</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {students
-                .filter((student) => metRequirements(student))
-                .map((student, index) => (
-                  <tr key={index}>
-                    <td>{student.Student}</td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-
-          {/* table listing passive restricted sisters */}
-          <table>
-            <thead>
-              <tr>
-                <th>Passive Restricted Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {students
-                .filter((student) => !metRequirements(student))
-                .map((student, index) => (
-                  <tr key={index}>
-                    <td>{student.Student}</td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <StatusTables students={students} />
 
       {/* checkbox to select/deselect all */}
       <label>
