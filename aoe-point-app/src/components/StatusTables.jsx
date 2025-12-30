@@ -1,6 +1,20 @@
 import { metRequirements } from "../util/miscUtil";
+import "./StatusTables.css";
+import { useState } from "react";
 
 export function StatusTables({ students }) {
+  const [isDisplayedActive, setIsDisplayedActive] = useState(false);
+  const [isDisplayedPassive, setIsDisplayedPassive] = useState(false);
+
+
+  function displaySisters() {
+    if (!isDisplayed) {
+      const tableBody = document.querySelector('tbody');
+            tableBody.style.display = 'flex';
+    }
+  }
+  
+  
   return (
     <div className="status-table">
       <h3>Sister Status</h3>
@@ -10,11 +24,21 @@ export function StatusTables({ students }) {
         <table>
           <thead>
             <tr>
-              <th>Active Status</th>
+              <th>
+                <div className = "wrapper-header">
+                    <div className = "label">
+                      Active Status
+                    </div>
+                    <div className = "button-container">
+                      <button onClick = {() => setIsDisplayedActive(!isDisplayedActive)}>Show Sisters</button>
+                    </div>
+                </div>
+                
+              </th>
             </tr>
           </thead>
-
-          <tbody>
+        { isDisplayedActive &&
+          (<tbody>
             {students
               .filter((student) => metRequirements(student))
               .map((student, index) => (
@@ -22,25 +46,38 @@ export function StatusTables({ students }) {
                   <td>{student.Student}</td>
                 </tr>
               ))}
-          </tbody>
+          </tbody>)
+        }
+          
         </table>
 
         {/* table listing passive restricted sisters */}
         <table>
           <thead>
             <tr>
-              <th>Passive Restricted Status</th>
+              <th>
+                <div className = "wrapper-header">
+                    <div className = "label">
+                      Passive-Restricted Status
+                    </div>
+                    <div className = "button-container">
+                      <button onClick = {() => setIsDisplayedPassive(!isDisplayedPassive)} >Show Sisters</button>
+                    </div>
+                </div>
+              </th>
             </tr>
           </thead>
-          <tbody>
-            {students
-              .filter((student) => !metRequirements(student))
-              .map((student, index) => (
-                <tr key={index}>
-                  <td>{student.Student}</td>
-                </tr>
-              ))}
-          </tbody>
+          
+          { isDisplayedPassive && 
+            (<tbody>
+              {students
+                .filter((student) => !metRequirements(student))
+                .map((student, index) => (
+                  <tr key={index}>
+                    <td>{student.Student}</td>
+                  </tr>
+                ))}
+            </tbody>)}
         </table>
       </div>
     </div>

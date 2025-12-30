@@ -1,0 +1,9 @@
+.button-container button {
+    width: 150px;
+    height: 30px;
+}
+
+.wrapper-header {
+    display: flex;
+    gap: 10px;
+}
