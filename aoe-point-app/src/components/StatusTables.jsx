@@ -30,7 +30,10 @@ export function StatusTables({ students }) {
                       Active Status
                     </div>
                     <div className = "button-container">
-                      <button onClick = {() => setIsDisplayedActive(!isDisplayedActive)}>Show Sisters</button>
+                      <button onClick = {() => setIsDisplayedActive(!isDisplayedActive)}>
+                        {!isDisplayedActive && ("Show Sisters")}
+                        {isDisplayedActive && ("Hide Sisters")}
+                      </button>
                     </div>
                 </div>
                 
@@ -61,7 +64,10 @@ export function StatusTables({ students }) {
                       Passive-Restricted Status
                     </div>
                     <div className = "button-container">
-                      <button onClick = {() => setIsDisplayedPassive(!isDisplayedPassive)} >Show Sisters</button>
+                      <button onClick = {() => setIsDisplayedPassive(!isDisplayedPassive)} >
+                        {!isDisplayedPassive && ("Show Sisters")}
+                        {isDisplayedPassive && ("Hide Sisters")}
+                      </button>
                     </div>
                 </div>
               </th>
