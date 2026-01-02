@@ -7,7 +7,6 @@ const service_id = import.meta.env.VITE_SERVICE_ID;
 const midsem_id = import.meta.env.VITE_MIDSEM_ID;
 const endsem_id = import.meta.env.VITE_ENDSEM_ID;
 const public_key = import.meta.env.VITE_PUBLIC_KEY;
-const address = import.meta.env.VITE_ADDRESS;
 
 emailjs.init(public_key);
 export async function sendMidsemester(student) {
@@ -32,7 +31,7 @@ export async function sendEndSemester(student) {
   var template_params = {
     student_name: student["Student"],
     point_table: renderToStaticMarkup(<PointTable student={student} />),
-    title: "Midsemester Check-in",
+    title: "End of Semester Check-in",
     recipient: `${student["SIS Login ID"]}@dukes.jmu.edu`,
     met_requirements: `<strong>You have ${
       metRequirements(student) ? "" : "not"

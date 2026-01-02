@@ -10,9 +10,9 @@ export const categories = [
   "Professional",
   "Academic",
   "Sisterhood",
-  "Philanthropic",
+  "Philanthropic", // edit csv
   "DEI",
-  "Interest Meetings",
+  "Interest Meetings", // edit csv
   "Ritual",
   "Voting Sessions", // edit csv
   "Recruitment", //edit csv
@@ -22,7 +22,7 @@ export const categories = [
 export const pointReqs = {
   Chapter: 12,
   Professional: 2,
-  Academic: 1,
+  Academic: 15,
   Sisterhood: 2,
   Philanthropic: 2,
   DEI: 2,
