@@ -38,6 +38,7 @@ app.post("/api/auth/google", async (req, res) => {
       "rossitermackenzie@gmail.com",
       "alicemilea04@gmail.com",
       "jmuaoesecretary@gmail.com",
+      "aoegammaalpha@gmail.com",
     ];
 
     //todo: go back and coordinate this with alice's code
