@@ -76,3 +76,19 @@ button:hover {
     font-size: 50px;
     margin-bottom: 0.5em;
 }
+
+
+/* Select all Button styling */
+.select-all {
+    background-color: var(--silver);
+    font-size: 2em;
+    width: 5em;
+    border-radius: 15px;
+    border: 3px white solid;
+    
+}
+
+.select-all input[type="checkbox"] {
+    height: 1.5em;
+    width:1.5em;
+}

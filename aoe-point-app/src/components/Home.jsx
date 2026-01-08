@@ -97,14 +97,17 @@ function Home() {
       <StatusTables students={students} />
 
       {/* checkbox to select/deselect all */}
-      <label>
-        <input
-          type="checkbox"
-          defaultChecked
-          onChange={(event) => handleSelectAll(event)}
-        />
-        Select all
-      </label>
+      <div className = "select-all">
+        <label>
+          <input
+            type="checkbox"
+            defaultChecked
+            onChange={(event) => handleSelectAll(event)}
+          />
+          Select all
+        </label>
+      </div>
+      
 
       {/* tables with each sisters individual points */}
       <div className="point-tables">
