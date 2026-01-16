@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "electron-vite": "^5.0.0"
+  },
+    "scripts": {
+    "start": "electron-vite preview", 
+    "dev": "electron-vite dev", 
+    "prebuild": "electron-vite build"
+  }
+}
