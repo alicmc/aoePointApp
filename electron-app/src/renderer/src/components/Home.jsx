@@ -1,77 +1,85 @@
-import "./Home.css";
-import { googleLogout } from "@react-oauth/google";
-import { useNavigate } from "react-router-dom";
-import { UploadButton } from "./UploadButton";
-import { useState } from "react";
-import { PointTable } from "../util/emailTemplates";
-import { sendMidsemester } from "../util/email";
-import { sendEndSemester } from "../util/email";
-import { StatusTables } from "./StatusTables";
-import { metRequirements } from "../util/miscUtil";
+import './Home.css'
+import { googleLogout } from '@react-oauth/google'
+import { useNavigate } from 'react-router-dom'
+import { UploadButton } from './UploadButton'
+import { useState } from 'react'
+import { PointTable } from '../util/emailTemplates'
+import { sendMidsemester } from '../util/email'
+import { sendEndSemester } from '../util/email'
+import { StatusTables } from './StatusTables'
+import { metRequirements } from '../util/miscUtil'
 
 function Home() {
-  const [isDisabled, setIsDisabled] = useState(false);
-  const [students, setStudents] = useState([]);
-  const [checked, setChecked] = useState([]);
-  const navigate = useNavigate();
+  const [isDisabled, setIsDisabled] = useState(false)
+  const [students, setStudents] = useState([])
+  const [checked, setChecked] = useState([])
+  const navigate = useNavigate()
 
   // handle change for each student checkbox
   const handleCheck = (event, index) => {
     setChecked((prev) => {
-      const next = [...prev];
-      next[index] = event.target.checked;
-      return next;
-    });
-  };
+      const next = [...prev]
+      next[index] = event.target.checked
+      return next
+    })
+  }
 
   // handle change for the select all checkbox
   const handleSelectAll = (event) => {
-    let newChecked = new Array(checked.length);
-    newChecked.fill(event.target.checked);
-    setChecked(newChecked);
+    let newChecked = new Array(checked.length)
+    newChecked.fill(event.target.checked)
+    setChecked(newChecked)
     // console.log(newChecked);
-  };
+  }
 
   function handleLogout() {
-    googleLogout();
-    localStorage.setItem("authed", "false");
-    navigate("/Login");
-    console.log("clicked");
+    googleLogout()
+    localStorage.setItem('authed', 'false')
+    navigate('/Login')
+    console.log('clicked')
   }
 
   // Timeout send emails button to avoid spamming inboxes
   async function handleEmails() {
     if (!isDisabled) {
-      console.log("I am not disabled");
+      console.log('I am not disabled')
       // send mid sem emails
-      setIsDisabled(true);
-      console.log("I am disbaled");
+      setIsDisabled(true)
+      console.log('I am disbaled')
 
       // wait for 3 seconds then reset button
       setTimeout(() => {
-        setIsDisabled(false);
-      }, 3000);
+        setIsDisabled(false)
+      }, 3000)
     }
   }
 
   async function handleMidSem() {
-    handleEmails();
+    handleEmails()
     //console.log(students);
-    students.forEach((student, index) => {
+    for (let index = 0; index < students.length; index++) {
       if (checked[index]) {
-        sendMidsemester(student);
+        try {
+          await sendMidsemester(students[index])
+        } catch (error) {
+          console.error(`Failed to send email to ${students[index]['Student']}:`, error)
+        }
       }
-    });
+    }
   }
 
   async function handleEndSem() {
-    handleEmails();
+    handleEmails()
     // console.log(students);
-    students.forEach((student, index) => {
+    for (let index = 0; index < students.length; index++) {
       if (checked[index]) {
-        sendEndSemester(student);
+        try {
+          await sendEndSemester(students[index])
+        } catch (error) {
+          console.error(`Failed to send email to ${students[index]['Student']}:`, error)
+        }
       }
-    });
+    }
   }
 
   return (
@@ -97,17 +105,12 @@ function Home() {
       <StatusTables students={students} />
 
       {/* checkbox to select/deselect all */}
-      <div className = "select-all">
+      <div className="select-all">
         <label>
-          <input
-            type="checkbox"
-            defaultChecked
-            onChange={(event) => handleSelectAll(event)}
-          />
+          <input type="checkbox" defaultChecked onChange={(event) => handleSelectAll(event)} />
           Select all
         </label>
       </div>
-      
 
       {/* tables with each sisters individual points */}
       <div className="point-tables">
@@ -115,8 +118,7 @@ function Home() {
           students.map((student, index) => (
             <div key={index}>
               <h3>
-                {student["Student"]} has {!metRequirements(student) && "not"}{" "}
-                met requirements
+                {student['Student']} has {!metRequirements(student) && 'not'} met requirements
               </h3>
               <label>
                 <input
@@ -132,7 +134,7 @@ function Home() {
           ))}
       </div>
     </>
-  );
+  )
 }
 
-export default Home;
+export default Home

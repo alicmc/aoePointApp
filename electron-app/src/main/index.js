@@ -2,6 +2,56 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import express from 'express'
+import nodemailer from 'nodemailer'
+import dotenv from 'dotenv'
+
+// Load environment variables
+dotenv.config()
+
+// Create Nodemailer transporter
+const transporter = nodemailer.createTransport({
+  host: 'smtp.gmail.com',
+  port: 587,
+  secure: false,
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASSWORD
+  }
+})
+
+// Create Express server
+const expressApp = express()
+expressApp.use(express.json())
+
+// Email sending endpoint
+expressApp.post('/api/send-email', async (req, res) => {
+  try {
+    const { to, subject, html } = req.body
+
+    if (!to || !subject || !html) {
+      return res.status(400).json({ error: 'to, subject, and html are required' })
+    }
+
+    const result = await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to,
+      subject,
+      html
+    })
+
+    console.log('Email sent successfully:', result.messageId)
+    res.json({ success: true, messageId: result.messageId })
+  } catch (error) {
+    console.error('Email error:', error)
+    res.status(500).json({ error: error.message })
+  }
+})
+
+// Start Express server
+expressApp.listen(4000, () => {
+  console.log('Email server running on http://localhost:4000')
+})
 
 function createWindow() {
   // Create the browser window.
